@@ -17,8 +17,7 @@ namespace MovieWeb.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<Cinema> data = await context.Cinemas.ToListAsync();
-
-            return View();
+            return View(data);
         }
     }
 }
