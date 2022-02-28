@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Movie>
+
+@{
+    ViewData["Title"] = "List of Movies";
+}
+
+<div class="row justify-content-center row-cols-1 row-cols-md-3 g-4">
+    @foreach (var item in Model)
+    {
+        <div class="card m-3 p-0" style="width: 24rem;">
+            <img src="@item.ImageURL" class="card-img-top" alt="@item.Name">
+            <div class="card-body">
+                <h5 class="card-title">@item.Name</h5>
+                <p class="card-text">@item.Description</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><b>Cinema: </b>@item.Cinema.Name</li>
+                <li class="list-group-item"><b>Category: </b>@item.MovieCategory.ToString()</li>
+                <li class="list-group-item"><b>Start Date: </b>@item.StartDate.ToString("dd MMM yyyy")</li>
+                <li class="list-group-item"><b>End Date: </b>@item.EndDate.ToString("dd MMM yyyy")</li>
+                <li class="list-group-item">
+                    <b>Status: </b>
+                    @{
+                        if (DateTime.Now <= @item.StartDate)
+                        {
+                            <span class="badge bg-primary">UPCOMING</span>
+                        }
+                        else if (DateTime.Now > @item.StartDate && DateTime.Now <= @item.EndDate)
+                        {
+                            <span class="badge bg-success">AVAILABLE</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">UNAVAILABLE</span>
+                        }
+                    }
+                </li>
+            </ul>
+            <div class="p-3 d-flex justify-content-between">
+                <a href="#" class="btn btn-success"><i class="bi bi-cart-plus"></i>&nbsp; Add to Cart (@item.Price.ToString("c"))</a>
+                <a href="#" class="btn btn-primary"><i class="bi bi-info-circle-fill"></i> Info</a>
+            </div>
+        </div>
+    }
+</div>
+
+@*<div class="row justify-content-center">
+    <div class="col-md-8">
+    <table class="table">
+    <thead>
+    <tr>
+    <th>@Html.DisplayNameFor(model => model.ImageURL)</th>
+    <th>@Html.DisplayNameFor(model => model.Name)</th>
+    <th>@Html.DisplayNameFor(model => model.Description)</th>
+    <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+    <td class="align-middle">
+    <img class="rounded-circle" alt="@item.Name" style="max-width: 150px" src="@item.ImageURL">
+    </td>
+    <td class="align-middle">
+    @Html.DisplayFor(model => item.Name)
+    </td>
+    <td class="align-middle">
+    @Html.DisplayFor(model => item.Description)
+    </td>
+    <td class="align-middle">
+    <a class="btn btn-warning"><i class="bi bi-pencil-fill"></i></a>
+    <a class="btn btn-primary"><i class="bi bi-info-circle-fill"></i></a>
+    <a class="btn btn-danger"><i class="bi bi-trash-fill"></i></a>
+    </td>
+    </tr>
+    }
+    </tbody>
+    </table>
+    </div>
+    </div>*@
