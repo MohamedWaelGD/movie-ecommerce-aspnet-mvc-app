@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MovieWeb.Data;
+using MovieWeb.Data.Services;
 using MovieWeb.Models;
 
 namespace MovieWeb.Controllers
 {
     public class ActorsController : Controller
     {
-        private readonly ApplicationDbContext context;
+        private readonly IActorsService service;
 
-        public ActorsController(ApplicationDbContext _context)
+        public ActorsController(IActorsService _service)
         {
-            context = _context;
+            service = _service;
         }
 
         public async Task<IActionResult> Index()
         {
-            IEnumerable<Actor> data = await context.Actors.ToListAsync();
+            var data = await service.GetAll();
             return View(data);
         }
     }
